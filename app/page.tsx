@@ -1,42 +1,14 @@
-'use client'
+import { Search, SlidersHorizontal, Star } from 'lucide-react'
+import { Header, ServiceCard } from '@/components/marketplace'
 
-import { useState } from 'react'
-import { ArrowLeft, Check, ChevronDown, ChevronRight, CreditCard, LockKeyhole, MessageCircle, ShieldCheck, LoaderCircle } from 'lucide-react'
+const services = [
+  { image: '/services/web-development.png', title: 'Desarrollo de landing page de alta conversión', provider: 'Nexo Studio', price: '$750' },
+  { image: '/services/brand-design.png', title: 'Identidad visual completa para tu marca', provider: 'Línea Norte', price: 'A cotizar', quote: true },
+  { image: '/services/marketing-strategy.png', title: 'Estrategia de contenidos y redes', provider: 'Estudio Pulso', price: '$280' },
+]
 
-const includes = ['Hasta 3 páginas responsive', 'Diseño visual a medida', 'SEO básico', '2 rondas de cambios']
-
-function OrderSummary({ expanded, onToggle }: { expanded: boolean; onToggle: () => void }) {
-  return <aside className={`checkout-summary ${expanded ? 'summary-expanded' : ''}`}>
-    <div className="summary-mobile-toggle" onClick={onToggle} role="button" tabIndex={0}>
-      <span>Resumen de tu orden</span><strong>$750</strong><ChevronDown className={expanded ? 'rotated' : ''} />
-    </div>
-    <div className="summary-content">
-      <div className="summary-service"><img src="/services/web-development.png" alt="Diseño de landing page" /><div><strong>Desarrollo de landing page de alta conversión</strong><span>Nexo Studio</span></div></div>
-      <div className="summary-package"><div><span>Paquete elegido</span><strong>Estándar</strong></div><span className="summary-time">7 días de entrega</span></div>
-      <ul className="summary-includes">{includes.map(item => <li key={item}><Check /> {item}</li>)}</ul>
-      <div className="price-breakdown"><div><span>Subtotal</span><strong>$750</strong></div><div><span>Cargo de servicio</span><strong>$0</strong></div><div className="total-row"><span>Total</span><strong>$750</strong></div></div>
-      <div className="trust-list"><span><LockKeyhole /> Pago seguro</span><span><MessageCircle /> Soporte post-entrega</span></div>
-    </div>
-  </aside>
+export default function Home() {
+  return <main><Header /><div className="home-container"><section className="home-hero"><span className="eyebrow">EL MARKETPLACE DE SERVICIOS DIGITALES</span><h1>Encontrá a la persona indicada<br />para hacer realidad tu idea</h1><p>Servicios seleccionados, profesionales confiables y precios claros.</p><div className="home-search"><Search /><input placeholder="¿Qué necesitás resolver?" aria-label="Buscar servicios" /><button className="primary-button">Buscar</button></div></section><section className="results-section"><div className="results-heading"><div><span className="eyebrow">EXPLORÁ SERVICIOS</span><h2>Servicios destacados</h2><p>Una selección de profesionales listos para ayudarte.</p></div><button className="filter-button"><SlidersHorizontal /> Filtrar</button></div><div className="category-row"><button className="category active">Todos</button><button className="category">Desarrollo web</button><button className="category">Diseño</button><button className="category">Marketing</button><button className="category">Contenido</button></div><div className="services-grid">{services.map(service => <ServiceCard key={service.title} {...service} />)}</div></section><section className="trust-banner"><div><Star fill="currentColor" /><strong>Profesionales verificados</strong><span>Trabajá con confianza en cada proyecto.</span></div><div><strong>4.9/5</strong><span>promedio de satisfacción</span></div></section></div></main>
 }
 
-function CheckoutForm() {
-  const [loading, setLoading] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState(false)
-  const handleSubmit = (event: React.FormEvent) => { event.preventDefault(); setLoading(true); setError(false); window.setTimeout(() => { setLoading(false); setSubmitted(true) }, 900) }
-  if (submitted) return <section className="success-state"><span className="success-icon"><Check /></span><h1>¡Pago confirmado!</h1><p>Tu orden fue creada, el proveedor la verá en breve.</p><button className="primary-button wide-button">Ver mi orden <ChevronRight /></button><button className="secondary-button">Volver al inicio</button></section>
-  return <form className="payment-form" onSubmit={handleSubmit}>
-    {error && <div className="payment-error" role="alert"><strong>No pudimos procesar el pago.</strong><span>Revisá los datos de tu tarjeta e intentá nuevamente.</span><button type="button" onClick={() => setError(false)}>Reintentar</button></div>}
-    <section className="form-section"><div className="section-kicker">1</div><div className="form-section-body"><h2>Datos de contacto</h2><p>Te enviaremos la confirmación de tu orden a estos datos.</p><div className="form-fields"><label>Nombre completo<input required placeholder="Tu nombre" /></label><label>Email<input required type="email" placeholder="nombre@email.com" /></label></div></div></section>
-    <section className="form-section"><div className="section-kicker">2</div><div className="form-section-body"><h2>Método de pago</h2><p>Ingresá los datos de tu tarjeta para completar la compra.</p><div className="payment-method"><CreditCard /><strong>Tarjeta de crédito o débito</strong><span>Visa · Mastercard</span></div><div className="form-fields"><label className="field-full">Número de tarjeta<input required inputMode="numeric" placeholder="0000 0000 0000 0000" /></label><label>Vencimiento<input required placeholder="MM / AA" /></label><label>CVV<input required inputMode="numeric" placeholder="123" /></label></div></div></section>
-    <label className="terms-check"><input required type="checkbox" /> <span>Acepto los <a href="#">términos y condiciones</a> de la compra.</span></label>
-    <button className="primary-button wide-button payment-submit" disabled={loading}>{loading ? <><LoaderCircle className="spinner" /> Procesando pago...</> : <>Confirmar y pagar <ChevronRight /></>}</button>
-    <p className="payment-note"><LockKeyhole /> Tu información está protegida y se procesa de forma segura.</p>
-  </form>
-}
-
-export default function Page() {
-  const [summaryOpen, setSummaryOpen] = useState(false)
-  return <main className="checkout-page"><header className="site-header"><div className="checkout-header"><a className="brand" href="#"><span className="brand-mark">m</span><span>marea</span></a><span className="checkout-secure"><LockKeyhole /> Checkout seguro</span></div></header><div className="checkout-container"><a className="back-link" href="#"><ArrowLeft /> Volver a la ficha de servicio</a><div className="checkout-breadcrumb"><span>Ficha de servicio</span><ChevronRight /><strong>Checkout</strong></div><div className="checkout-grid"><div className="checkout-main"><div className="checkout-heading"><span className="eyebrow">RESUMEN Y PAGO</span><h1>Finalizá tu compra</h1><p>Estás a un paso de empezar tu proyecto con Nexo Studio.</p></div><CheckoutForm /></div><OrderSummary expanded={summaryOpen} onToggle={() => setSummaryOpen(value => !value)} /></div></div></main>
-}
+export const metadata = { title: 'marea — Servicios digitales' }
