@@ -85,7 +85,7 @@ export function RegisterForm() {
     return found
   }
 
-  return <div className="auth-card card-surface"><span className="eyebrow">CREÁ TU CUENTA</span><h1>Registrate en marea</h1><p className="auth-subtitle">Es gratis y te lleva menos de un minuto.</p><AuthNotice text={notice} />
+  return <div className="auth-card card-surface"><span className="eyebrow">CREÁ TU CUENTA</span><h1>Registrate en Marea Digital</h1><p className="auth-subtitle">Es gratis y te lleva menos de un minuto.</p><AuthNotice text={notice} />
     <form className="auth-form" noValidate onSubmit={async event => {
       event.preventDefault()
       const found = validate(); setErrors(found); if (found.length) return

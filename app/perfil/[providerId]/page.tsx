@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic'
 export async function generateMetadata({ params }: { params: Promise<{ providerId: string }> }) {
   const { providerId } = await params
   const provider = await getProvider(providerId)
-  return { title: provider ? `${provider.name} — marea` : 'Proveedor no encontrado — marea' }
+  return { title: provider ? `${provider.name} — Marea Digital` : 'Proveedor no encontrado — Marea Digital' }
 }
 
 export default async function ProviderProfilePage({ params }: { params: Promise<{ providerId: string }> }) {

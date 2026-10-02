@@ -4,7 +4,7 @@ import { AuthProvider } from '@/components/auth'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'marea — Servicios digitales de confianza',
+  title: 'Marea Digital — Servicios digitales de confianza',
   description: 'Encontrá freelancers y agencias para hacer crecer tu proyecto.',
   generator: 'v0.app',
   icons: {
